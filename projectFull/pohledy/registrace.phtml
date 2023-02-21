@@ -1,0 +1,107 @@
+
+<div class="container py-5">
+    <h3 class="text-center">
+        <?php if (($admin)) : ?>
+            Přidání nového pojištěnce
+        <?php else : ?>
+            Registrační formulář
+        <?php endif ?></h3>
+</div>
+
+<div class="container mb-5">
+    <form method="post" class="row needs-validation justify-content-center gx-4 gy-2" novalidate>
+        <div class="col-md-4 col-lg-3">
+            <label for="registraceJmeno" class="form-label">Jméno</label>
+            <input type="text" class="form-control" id="registraceJmeno" name="jmeno" placeholder="Jan" required>
+            <div class="invalid-feedback">Zadejte jméno</div>
+        </div>
+        <div class="col-md-4 col-lg-3">
+            <label for="registracePrijmeni" class="form-label">Příjmení</label>
+            <input type="text" class="form-control" id="registracePrijmeni" name="prijmeni" placeholder="Novák" required>
+            <div class="invalid-feedback">Zadejte příjmení</div>
+        </div>
+        <div class="w-100"></div>
+        <div class="col-md-4 col-lg-3">
+            <label for="registraceEmail" class="form-label">E-mail</label>
+            <input type="email" class="form-control" id="registraceEmail" name="email" placeholder="jannovak@seznam.cz" required>
+            <div class="invalid-feedback">Zadejte e-mail</div>
+        </div>
+        <div class="col-md-4 col-lg-3">
+            <label for="registraceTelefon" class="form-label">Telefon</label>
+            <input type="tel" class="form-control" id="registraceTelefon" name="telefon" placeholder="+420736702738" required>
+            <div class="invalid-feedback">Zadejte telefonní číslo</div>
+        </div>
+        <div class="w-100"></div>
+        <div class="col-md-4 col-lg-3">
+            <label for="registraceUlice" class="form-label">Ulice</label>
+            <input type="text" class="form-control" id="registraceUlice" name="ulice" placeholder="Ve Svahu" required>
+            <div class="invalid-feedback">Zadejte ulici</div>
+        </div>
+        <div class="col-md-4 col-lg-3">
+            <label for="registraceCisloPopisne" class="form-label">Číslo popisné</label>
+            <input type="text" class="form-control" id="registraceCisloPopisne" name="cisloPopisne" placeholder="839/13" required>
+            <div class="invalid-feedback">Zadejte číslo popisné</div>
+        </div>
+        <div class="w-100"></div>
+        <div class="col-md-4 col-lg-3">
+            <label for="registraceMesto" class="form-label">Město</label>
+            <input type="text" class="form-control" id="registraceMesto" name="mesto" placeholder="Praha 4" required>
+            <div class="invalid-feedback">Zadejte město</div>
+        </div>
+        <div class="col-md-4 col-lg-3">
+            <label for="registracePcs" class="form-label">PSČ</label>
+            <input type="text" class="form-control" id="registracePsc" name="psc" placeholder="147 00" required>
+            <div class="invalid-feedback">Zadejte PSČ</div>
+        </div>
+        <?php if ((!$admin)) : ?>
+            <div class="w-100"></div>
+            <div class="col-md-4 col-lg-3">
+                <label for="registraceHeslo" class="form-label">Heslo</label>
+                <input type="password" class="form-control" id="registraceHeslo" name="heslo" required>
+                <div class="invalid-feedback">Zadejte heslo</div>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <label for="registraceHesloZnovu" class="form-label">Heslo znovu</label>
+                <input type="password" class="form-control" id="registraceHesloZnovu" name="hesloZnovu" required>
+                <div class="invalid-feedback">Zadejte heslo</div>
+            </div>
+            <div class="w-100"></div>
+            <div class="col-auto">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                    <label class="form-check-label" for="invalidCheck">Souhlasím se zpracováním osobních údajů pro účely registrace.</label>
+                    <div class="invalid-feedback">Tento souhlas je nutné potvrdit</div>
+                </div>
+            </div>
+        <?php endif ?>
+        <div class="w-100"></div>
+        <div class="col-auto">
+            <button class="btn btn-primary" type="submit">
+                <?php if (($admin)) : ?>
+                    Přidat pojištěnce
+                <?php else : ?>
+                    Zaregistrovat
+                <?php endif ?>
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    (() => {
+        'use strict';
+
+        const forms = document.querySelectorAll('.needs-validation');
+
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
+</script>

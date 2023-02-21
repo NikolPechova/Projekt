@@ -1,0 +1,81 @@
+<div class="container py-5">
+    <h3 class="text-center">
+        <?php if ($pojisteni['nazev']) : ?>
+            Úprava pojištění
+        <?php else : ?>
+            Přidání pojištění k <?= $jmeno . " " . $prijmeni ?>
+        <?php endif ?>
+    </h3>
+</div>
+
+<div class="container mb-5">
+    <form method="post" class="row needs-validation justify-content-center gx-4 gy-2" novalidate>
+        <div class="col-md-8 col-lg-6">
+            <label for="pojisteniNazev" class="form-label">Pojištění</label>
+            <?php if ($pojisteni['nazev']) : ?>
+                <input type="text" class="form-control" id="pojisteniNazev" name="pojisteniNazev" value="<?= $pojisteni['nazev'] ?>" disabled required>
+            <?php else : ?>
+                <select class="form-select fw-bold" id="pojisteniNazev" name="pojisteniNazev" aria-label="Default select example" required>
+                    <option value="Životní pojištění">Životní pojištění</option>
+                    <option value="Cestovní pojištění">Cestovní pojištění</option>
+                    <option value="Pojištění vozidla">Pojištění vozidla</option>
+                    <option value="Pojištění majetku">Pojištění majetku</option>
+                    <option value="Pojištění odpovědnosti">Pojištění odpovědnosti</option>
+                    <option value="Pojištění mazlíčků">Pojištění mazlíčků</option>
+                </select>
+            <?php endif ?>
+        </div>
+        <div class="w-100"></div>
+        <div class="col-md-4 col-lg-3">
+            <label for="pojisteniCastka" class="form-label">Částka</label>
+            <input type="number" class="form-control" id="pojisteniCastka" name="castka" value="<?= $pojisteni['castka'] ?>" required>
+            <div class="invalid-feedback">Zadejte částku</div>
+        </div>
+        <div class="col-md-4 col-lg-3">
+            <label for="pojisteniPredmetPojisteni" class="form-label">Předmět pojištění</label>
+            <input type="tel" class="form-control" id="pojisteniPredmetPojisteni" name="predmet" value="<?= $pojisteni['predmet'] ?>" required>
+            <div class="invalid-feedback">Zadejte předmět pojištění</div>
+        </div>
+        <div class="w-100"></div>
+        <div class="col-md-4 col-lg-3">
+            <label for="pojisteniPlatnostOd" class="form-label">Platnost od</label>
+            <input type="date" class="form-control" id="pojisteniPlatnostOd" name="platnost_od" value="<?= $pojisteni['platnost_od'] ?>" required>
+            <div class="invalid-feedback">Zadejte platnost od</div>
+        </div>
+        <div class="col-md-4 col-lg-3">
+            <label for="pojisteniPlatnostDo" class="form-label">Platnost do</label>
+            <input type="date" class="form-control" id="pojisteniPlatnostDo" name="platnost_do" value="<?= $pojisteni['platnost_do'] ?>" required>
+            <div class="invalid-feedback">Zadejte platnost do</div>
+        </div>
+        <div class="w-100"></div>
+        <div class="col-auto mt-3">
+            <button class="btn btn-primary" type="submit">
+                <?php if ($pojisteni['nazev']) : ?>
+                    Upravit pojištění
+                <?php else : ?>
+                    Přidat pojištění
+                <?php endif ?>
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    (() => {
+        'use strict';
+
+        const forms = document.querySelectorAll('.needs-validation');
+
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
+</script>
+

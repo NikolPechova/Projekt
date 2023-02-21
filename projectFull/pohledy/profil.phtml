@@ -1,0 +1,125 @@
+    <div class="container py-5">
+        <div class="row">
+            <div class="col text-center">
+                <div class="h2 mb-5"><?= $jmeno . " " . $prijmeni ?></div>
+            </div>
+        </div>
+        <div class="row justify-content-center align-items-center mb-3">
+            <div class="col-md-3 col-lg-2 text-center text-md-start mb-3">
+                <img class="border border-dark rounded p-3" src="obrazky/pojistenec.png" alt="ikona pojištěnce"/>
+            </div>
+            <div class="col-md-4 col-lg-3 text-center text-md-start">
+                <div class="h5">Kontaktní údaje</div>
+                <ul class="list-unstyled my-3">
+                    <li>
+                        <a href="mailto:<?= $email ?>"><?= $email ?></a>
+                    </li>
+                    <li>
+                        <a href="tel:<?= $telefon ?>"><?= $telefon ?></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4 col-lg-3 text-center text-md-start">
+                <div class="h5">Adresa</div>
+                <ul class="list-unstyled my-3">
+                    <li><?= $ulice . " " . $cislo_popisne ?></li>
+                    <li><?= $psc . " " . $mesto ?></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <a class="btn btn-warning" href="profil/editaceUdaju" role="button">Upravit údaje</a>
+            </div>
+            <?php if (($_SESSION["pojistenec"]['pojistenci_id']) == $pojistenci_id) : ?>
+                <div class="col-auto">
+                    <a class="btn btn-primary" href="profil/editaceHesla" role="button">Změnit heslo</a>
+                </div>
+            <?php else : ?>
+                <div class="col-auto">
+                    <a class="btn btn-danger" href="pojistenci/<?= $pojistenci_id ?>/odstranit" role="button">Odstranit pojištěnce</a>
+                </div>
+            <?php endif ?>
+        </div>     
+        
+        <div class="row justify-content-between align-items-center mb-3 mt-5 mx-lg-5 px-lg-5">
+            <div class="col-auto h3">Sjednaná pojištění</div>
+            <?php if ((($_SESSION["pojistenec"]['pojistenci_id']) != $pojistenci_id) || ($_SESSION["pojistenec"]['admin'])) : ?>
+                <div class="col-auto">
+                    <a class="btn btn-primary" href="pojistenci/<?= $pojistenci_id ?>/pridatPojisteni" role="button">Přidat pojištění</a>
+                </div>
+            <?php endif ?>
+        </div>
+        <?php if (!$vsechnaPojisteni) : ?>
+            <div class="row text-center mt-5">
+                <p class="h4 mt-3">Zatím nejsou sjednána žádná pojištění.<p>
+            </div>
+        <?php else : ?>    
+            <?php if (!$vsechnaAktivniPojisteni) : ?>
+                <div class="row text-center mt-5">
+                    <p class="h4 mt-3">V tuto chvíli nejsou aktivní žádná pojištění.<p>
+                </div>
+            <?php else : ?>    
+                <div class="row align-items-center mx-lg-5 px-lg-5">
+                    <table class="table table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th scope="col">Aktivní pojištění</th>
+                                <th scope="col" class="text-end">Částka</th>
+                                <?php if ((($_SESSION["pojistenec"]['pojistenci_id']) != $pojistenci_id) || ($_SESSION["pojistenec"]['admin'])) : ?>
+                                    <th scope="col"></th>
+                                <?php endif ?>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($vsechnaAktivniPojisteni as $aktivniPojisteni) : ?>
+                                <tr>
+                                    <td scope="row"><a href="pojistenci/<?= $pojistenci_id ?>/<?= $aktivniPojisteni['pojisteni_id'] ?>"><?= $aktivniPojisteni['nazev'] ?></a></td>
+                                    <td class="text-end"><?= $aktivniPojisteni['castka'] ?> Kč</td>
+                                    <?php if ((($_SESSION["pojistenec"]['pojistenci_id']) != $pojistenci_id) || ($_SESSION["pojistenec"]['admin'])) : ?>
+                                        <td class="text-end w-50">
+                                            <a class="btn btn-warning mx-md-2 mx-xl-3" href="pojistenci/<?= $pojistenci_id ?>/<?= $aktivniPojisteni['pojisteni_id'] ?>/editovatPojisteni" role="button">Editovat</a>
+                                            <a class="btn btn-danger" href="pojistenci/<?= $pojistenci_id ?>/<?= $aktivniPojisteni['pojisteni_id'] ?>/odstranitPojisteni" role="button">Odstranit</a>
+                                        </td>
+                                    <?php endif ?>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php endif ?>
+            <?php if (!$vsechnaUkoncenaPojisteni) : ?>
+                <div class="row text-center mt-5">
+                    <p class="h4 mt-3">Nejsou zde žádná ukončená pojištění.<p>
+                </div>
+            <?php else : ?>    
+                <div class="row align-items-center mx-lg-5 px-lg-5 mt-3">
+                    <table class="table table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th scope="col">Ukončená pojištění</th>
+                                <th scope="col" class="text-end">Částka</th>
+                                <?php if ((($_SESSION["pojistenec"]['pojistenci_id']) != $pojistenci_id) || ($_SESSION["pojistenec"]['admin'])) : ?>
+                                    <th scope="col"></th>
+                                <?php endif ?>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($vsechnaUkoncenaPojisteni as $ukoncenePojisteni) : ?>
+                                <tr>
+                                    <td scope="row"><a href="pojistenci/<?= $pojistenci_id ?>/<?= $ukoncenePojisteni['pojisteni_id'] ?>"><?= $ukoncenePojisteni['nazev'] ?></a></td>
+                                    <td class="text-end"><?= $ukoncenePojisteni['castka'] ?> Kč</td>
+                                    <?php if ((($_SESSION["pojistenec"]['pojistenci_id']) != $pojistenci_id) || ($_SESSION["pojistenec"]['admin'])) : ?>
+                                        <td class="text-end w-50">
+                                            <a class="btn btn-warning mx-md-2 mx-xl-3" href="pojistenci/<?= $pojistenci_id ?>/<?= $ukoncenePojisteni['pojisteni_id'] ?>/editovatPojisteni" role="button">Editovat</a>
+                                            <a class="btn btn-danger" href="pojistenci/<?= $pojistenci_id ?>/<?= $ukoncenePojisteni['pojisteni_id'] ?>/odstranitPojisteni" role="button">Odstranit</a>
+                                        </td>
+                                    <?php endif ?>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php endif ?>
+        <?php endif ?>
+    </div>

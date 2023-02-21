@@ -1,0 +1,75 @@
+
+<div class="container py-5">
+    <h3 class="text-center">Úprava osobních údajů</h3>
+</div>
+
+<div class="container mb-5">
+    <form method="post" class="row needs-validation justify-content-center gx-4 gy-2" novalidate>
+        <div class="col-md-4 col-lg-3">
+            <label for="registraceJmeno" class="form-label">Jméno</label>
+            <input type="text" class="form-control" id="registraceJmeno" name="jmeno" value="<?= $jmeno ?>" required>
+            <div class="invalid-feedback">Zadejte své jméno</div>
+        </div>
+        <div class="col-md-4 col-lg-3">
+            <label for="registracePrijmeni" class="form-label">Příjmení</label>
+            <input type="text" class="form-control" id="registracePrijmeni" name="prijmeni" value="<?= $prijmeni ?>" required>
+            <div class="invalid-feedback">Zadejte své příjmení</div>
+        </div>
+        <div class="w-100"></div>
+        <div class="col-md-4 col-lg-3">
+            <label for="registraceEmail" class="form-label">E-mail</label>
+            <input type="email" class="form-control" id="registraceEmail" name="email" value="<?= $email ?>" required>
+            <div class="invalid-feedback">Zadejte svůj e-mail</div>
+        </div>
+        <div class="col-md-4 col-lg-3">
+            <label for="registraceTelefon" class="form-label">Telefon</label>
+            <input type="tel" class="form-control" id="registraceTelefon" name="telefon" value="<?= $telefon ?>" required>
+            <div class="invalid-feedback">Zadejte své telefonní číslo</div>
+        </div>
+        <div class="w-100"></div>
+        <div class="col-md-4 col-lg-3">
+            <label for="registraceUlice" class="form-label">Ulice</label>
+            <input type="text" class="form-control" id="registraceUlice" name="ulice" value="<?= $ulice ?>" required>
+            <div class="invalid-feedback">Zadejte ulici</div>
+        </div>
+        <div class="col-md-4 col-lg-3">
+            <label for="registraceCisloPopisne" class="form-label">Číslo popisné</label>
+            <input type="text" class="form-control" id="registraceCisloPopisne" name="cisloPopisne" value="<?= $cislo_popisne ?>" required>
+            <div class="invalid-feedback">Zadejte číslo popisné</div>
+        </div>
+        <div class="w-100"></div>
+        <div class="col-md-4 col-lg-3">
+            <label for="registraceMesto" class="form-label">Město</label>
+            <input type="text" class="form-control" id="registraceMesto" name="mesto" value="<?= $mesto ?>" required>
+            <div class="invalid-feedback">Zadejte město</div>
+        </div>
+        <div class="col-md-4 col-lg-3">
+            <label for="registracePcs" class="form-label">PSČ</label>
+            <input type="text" class="form-control" id="registracePsc" name="psc" value="<?= $psc ?>" required>
+            <div class="invalid-feedback">Zadejte PSČ</div>
+        </div>
+        <div class="w-100"></div>
+        <div class="col-auto mt-3">
+            <button class="btn btn-primary" type="submit">Upravit údaje</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    (() => {
+        'use strict';
+
+        const forms = document.querySelectorAll('.needs-validation');
+
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
+</script>
